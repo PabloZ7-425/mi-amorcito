@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Mi Amor</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ff85b3, #ff5e9c);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* CONTENEDOR */
+.container {
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* MENSAJE DE TOCAR */
+.toca {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 15px;
+  animation: latido 1.4s infinite;
+}
+
+@keyframes latido {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.13); }
+}
+
+/* SOBRE */
+.envelope {
+  width: 320px;
+  height: 220px;
+  background: #ffc0cb;
+  position: relative;
+  box-shadow: 0 0 25px rgba(0,0,0,0.3);
+  transition: transform 1s ease;
+  border-radius: 10px;
+}
+
+/* TAPA */
+.envelope::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
+  border-bottom: 120px solid #ff8fa8;
+  transition: transform 1s ease;
+  transform-origin: top;
+}
+
+/* CARTA INTERNA */
+.letter {
+  position: absolute;
+  top: 100px;
+  left: 10%;
+  width: 80%;
+  height: 0;
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 1.5s ease;
+  text-align: center;
+}
+
+/* TEXTO ROMÁNTICO */
+.texto {
+  opacity: 0;
+  margin-top: 20px;
+  font-size: 18px;
+  transition: opacity 2s ease;
+  color: #c4005a;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* FLORES Y CORAZONES FLOTANDO */
+.flower, .heart {
+  position: absolute;
+  bottom: -50px;
+  opacity: 0;
+  animation: floatUp 6s linear infinite;
+}
+
+.flower { font-size: 42px; }
+.heart { font-size: 36px; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(-800px) scale(1.2); opacity: 0; }
+}
+
+/* ANIMACIONES DE APERTURA */
+.open .envelope {
+  transform: translateY(140px);
+}
+
+.open .envelope::before {
+  transform: rotateX(180deg);
+}
+
+.open .letter {
+  height: 270px;
+  opacity: 1;
+}
+
+.open .texto {
+  opacity: 1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="card">
+  <div class="toca">💖 Toca la pantalla, mi amor 💖</div>
+
+  <div class="envelope"></div>
+
+  <div class="letter">
+    <h2 style="color:#e60073;">Para ti, mi amorcito ❤️</h2>
+    <div class="texto">
+      Desde que llegaste a mi vida, todo es más bonito.<br>
+      Gracias por tu amor y tu forma única de hacerme feliz.<br>
+      Eres mi razón, mi paz y mi alegría diaria.<br><br>
+      Te amo con todo mi corazón 💕
+    </div>
+  </div>
+
+</div>
+
+<!-- SCRIPT: FLORES Y CORAZONES AL ABRIR -->
+<script>
+const container = document.getElementById("card");
+
+container.addEventListener("click", function() {
+  container.classList.add("open");
+
+  // Crear flores y corazones flotando
+  for (let i = 0; i < 25; i++) {
+    let el = document.createElement("div");
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.animationDelay = (Math.random() * 4) + "s";
+
+    if (Math.random() > 0.5) {
+      el.classList.add("flower");
+      el.innerHTML = "🌸";
+    } else {
+      el.classList.add("heart");
+      el.innerHTML = "❤️";
+    }
+
+    document.body.appendChild(el);
+
+    // remover elementos después de animar
+    setTimeout(() => el.remove(), 7000);
+  }
+});
+</script>
+
+</body>
+</html>
